@@ -2,519 +2,423 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>𝕺𝖇𝖎𝖙𝖔 𝖀𝖈𝖍𝖎𝖍𝖆</title>
-<meta name="theme-color" content="#dc2626">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>RideLedger Pro</title>
+<meta name="theme-color" content="#0a1020">
 <style>
-/* ========== BASE ========== */
+:root {
+  --bg: #0a1020; --panel: #111b2d; --line: #293953; --text: #f5f7fb; --muted: #9baac0;
+  --green: #36d6a0; --red: #ff7186; --gold: #ffd166; --blue: #83b7ff; --r: 20px;
+}
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-body { font-family: -apple-system, 'Segoe UI', sans-serif; background: #0a0a0a; color: #e5e5e5; line-height: 1.6; overflow-x: hidden; }
+body {
+  background: radial-gradient(800px 360px at 50% -180px, #40557b 0%, transparent 75%), var(--bg);
+  color: var(--text);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  padding: 15px 12px 95px; /* Niche 95px jagah chhodi hai nav bar ke liye */
+}
+button, input, select { font: inherit; }
+button { touch-action: manipulation; }
+
+.app { max-width: 760px; margin: auto; }
+
+/* HEADER */
+.top { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin: 5px 2px 20px; }
+.brand { display: flex; align-items: center; gap: 11px; }
+.logo { width: 48px; height: 48px; display: grid; place-items: center; border-radius: 17px; background: linear-gradient(145deg, #ffe69b, #ffb703); font-size: 25px; box-shadow: 0 8px 30px #ffb70324; }
+.eyebrow { font-size: 10px; text-transform: uppercase; letter-spacing: 1.8px; color: var(--muted); font-weight: 850; }
+.brand h1 { font-size: 21px; margin: 3px 0 0; letter-spacing: -0.7px; color: var(--text); }
+.clock { text-align: right; font-size: 11px; color: var(--muted); line-height: 1.7; }
+.clock strong { display: block; font-size: 13px; color: var(--text); }
+.online { display: inline-flex; align-items: center; gap: 5px; color: var(--green); font-size: 10px; }
+.dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); }
+
+/* TABS */
+.tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; padding: 5px; border: 1px solid var(--line); background: #0e1728; border-radius: 16px; margin-bottom: 13px; }
+.tab { border: 0; background: transparent; color: var(--muted); padding: 13px 8px; border-radius: 12px; font-weight: 850; font-size: 14px; cursor: pointer; }
+.tab.active-rapido { background: var(--gold); color: #211a08; }
+.tab.active-zomato { background: #ff5268; color: white; }
+
+/* SECTIONS */
+.section { animation: appear 0.2s ease; }
+@keyframes appear { from { opacity: 0.5; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+
+/* HERO */
+.hero { padding: 20px; border: 1px solid #334561; border-radius: var(--r); background: linear-gradient(135deg, #1d2c45, #111a2b 75%); margin-bottom: 11px; position: relative; overflow: hidden; }
+.hero:after { content: ""; position: absolute; width: 180px; height: 180px; border-radius: 50%; background: #ffffff06; right: -60px; top: -75px; pointer-events: none; }
+.hero-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; color: var(--muted); font-size: 10px; letter-spacing: 1px; font-weight: 850; }
+.pill { display: inline-flex; border: 1px solid #ffffff1e; border-radius: 999px; padding: 5px 9px; color: #c1cde0; font-size: 10px; letter-spacing: 0; white-space: nowrap; }
+.net { font-size: clamp(33px, 8vw, 44px); font-weight: 900; letter-spacing: -1.8px; margin: 9px 0 15px; overflow-wrap: anywhere; }
+.positive { color: var(--green); }
+.negative { color: var(--red); }
+.hero-foot { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.mini-label { font-size: 11px; color: var(--muted); margin-bottom: 5px; }
+.mini-value { font-size: 16px; font-weight: 850; }
+
+/* METRICS */
+.metric-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-bottom: 12px; }
+.metric { min-width: 0; padding: 12px 10px; background: var(--panel); border: 1px solid var(--line); border-radius: 15px; }
+.metric-icon { font-size: 17px; }
+.metric-label { font-size: 10px; color: var(--muted); margin: 7px 0 5px; }
+.metric-value { font-size: clamp(12px, 3.7vw, 16px); font-weight: 850; overflow-wrap: anywhere; }
+
+/* PANELS */
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r); padding: 16px; margin-bottom: 12px; }
+.panel-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 14px; }
+.panel h2 { font-size: 15px; margin: 0; letter-spacing: -0.3px; color: var(--text); }
+.sub { font-size: 11px; color: var(--muted); margin-top: 4px; line-height: 1.5; }
+.field-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 11px; }
+.field { min-width: 0; }
+.field.full { grid-column: 1 / -1; }
+.field label { display: block; color: #bdc9da; font-size: 11px; font-weight: 750; margin-bottom: 6px; }
+.field input, .field select, .filter-input, .filter-select { width: 100%; min-width: 0; border: 1px solid #2c3b55; background: #0b1424; color: var(--text); border-radius: 11px; padding: 12px 10px; font-size: 14px; outline: none; }
+.field input:focus, .field select:focus, .filter-input:focus, .filter-select:focus { border-color: var(--blue); box-shadow: 0 0 0 3px #83b7ff18; }
+.field input::placeholder, .filter-input::placeholder { color: #60718c; }
+.money-field { position: relative; }
+.money-field:before { content: "₹"; position: absolute; left: 11px; top: 50%; transform: translateY(-50%); color: #8293ad; font-size: 13px; }
+.money-field input { padding-left: 27px; }
+.hint { font-size: 10px; color: var(--muted); line-height: 1.6; margin-top: 10px; }
+.quick-title { font-size: 10px; color: var(--muted); font-weight: 800; margin: 13px 0 7px; }
+.quick-row { display: flex; flex-wrap: wrap; gap: 7px; }
+.quick { border: 1px solid #35445f; background: #1a2840; color: #d9e4f4; padding: 7px 10px; border-radius: 9px; font-size: 11px; font-weight: 750; cursor: pointer; }
+.quick:active { transform: scale(0.97); }
+.actions { display: flex; gap: 8px; margin-top: 15px; }
+.btn { border: 0; border-radius: 12px; padding: 12px 13px; font-weight: 850; font-size: 12px; cursor: pointer; transition: transform 0.12s, filter 0.12s; }
+.btn:active { transform: scale(0.98); }
+.btn.primary { flex: 1; }
+.section.rapido .btn.primary { background: var(--gold); color: #201a09; }
+.section.zomato .btn.primary { background: #ff5268; color: white; }
+.btn.secondary { background: #26364f; color: #e6edf8; }
+.btn.danger { background: #3b202c; color: #ff9baa; }
+.btn.outline { background: transparent; border: 1px solid #35445e; color: #dce6f5; }
 .hidden { display: none !important; }
 
-/* ========== LOCK SCREEN ========== */
-.lock { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 30px; text-align: center; z-index: 9999; background: radial-gradient(ellipse at top, #1a0a1a 0%, #0a0a0a 60%); overflow-y: auto; }
-.lock h1 { font-size: 30px; margin-bottom: 10px; background: linear-gradient(135deg, #dc2626, #7c3aed); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; letter-spacing: 3px; }
-.lock .sub { color: #666; font-size: 13px; letter-spacing: 3px; margin-bottom: 20px; }
-.lock .did-box { background: #141414; border: 2px solid #dc2626; border-radius: 12px; padding: 20px 24px; margin: 12px 0; max-width: 400px; width: 100%; position: relative; }
-.lock .did-label { font-size: 11px; color: #666; letter-spacing: 3px; margin-bottom: 8px; }
-.lock .did-value { font-size: 16px; font-family: monospace; color: #fca5a5; word-break: break-all; letter-spacing: 1px; padding-right: 40px; }
-.copy-btn { position: absolute; right: 12px; bottom: 20px; background: rgba(220, 38, 38, 0.2); border: 1px solid rgba(220, 38, 38, 0.4); color: #fca5a5; font-size: 18px; width: 36px; height: 36px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-.lock button.primary { padding: 14px 40px; border-radius: 8px; border: none; background: linear-gradient(135deg, #dc2626, #7c3aed); color: white; font-size: 15px; font-weight: 700; cursor: pointer; letter-spacing: 2px; margin-top: 16px; }
-.lock button.request { padding: 12px 30px; border-radius: 8px; border: 1px solid #444; background: transparent; color: #a5b4fc; font-size: 13px; font-weight: 600; cursor: pointer; letter-spacing: 1px; margin-top: 10px; }
-.lock .status { margin-top: 16px; font-size: 13px; color: #fbbf24; min-height: 24px; max-width: 400px; }
-.lock .status.err { color: #f87171; }
-.lock .status.ok { color: #4ade80; }
-.lock .icon { font-size: 60px; margin-bottom: 20px; }
+/* PREVIEW */
+.preview { display: flex; align-items: center; justify-content: space-between; gap: 10px; background: #0c1525; border: 1px dashed #3b4b66; border-radius: 12px; padding: 11px 12px; margin-top: 13px; }
+.preview span { font-size: 11px; color: var(--muted); }
+.preview strong { font-size: 17px; }
 
-/* ========== TOAST ========== */
-.copy-toast { position: fixed; top: 30px; left: 50%; transform: translateX(-50%); background: #14532d; color: #86efac; padding: 12px 24px; border-radius: 8px; font-size: 14px; font-weight: 600; opacity: 0; pointer-events: none; transition: opacity 0.3s; z-index: 99999; }
-.copy-toast.show { opacity: 1; }
+/* SUMMARY */
+.sum-row { display: flex; justify-content: space-between; gap: 12px; padding: 10px 0; border-bottom: 1px solid #263249; font-size: 12px; }
+.sum-row:last-child { border-bottom: 0; }
+.sum-row span { color: var(--muted); }
+.sum-row strong { text-align: right; font-size: 13px; }
+.periods { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+.period-btn { border: 1px solid var(--line); background: #0d1627; color: var(--muted); padding: 9px 3px; border-radius: 9px; font-size: 10px; font-weight: 800; cursor: pointer; }
+.period-btn.active { background: #dceaff; color: #17243a; border-color: #dceaff; }
+.filter-row { display: flex; gap: 7px; align-items: center; flex-wrap: wrap; }
+.filter-row .filter-input { flex: 1; min-width: 120px; width: auto; padding: 10px; font-size: 12px; }
+.filter-select { width: auto; max-width: 100%; padding: 10px; font-size: 12px; }
+.entries { display: grid; gap: 8px; }
+.day-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin: 14px 0 7px; font-size: 11px; font-weight: 850; color: #e2eaf7; }
+.day-head:first-child { margin-top: 0; }
+.day-head span:last-child { color: var(--muted); white-space: nowrap; }
+.entry { background: #0d1627; border: 1px solid var(--line); border-radius: 14px; padding: 12px; }
+.entry-top { display: flex; justify-content: space-between; gap: 8px; align-items: flex-start; }
+.entry-title { font-size: 13px; font-weight: 850; overflow-wrap: anywhere; }
+.entry-time { font-size: 10px; color: var(--muted); margin-top: 4px; }
+.entry-net { text-align: right; font-size: 15px; font-weight: 900; white-space: nowrap; }
+.entry-details { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.chip { background: #1a2840; color: #c8d5e8; border-radius: 8px; padding: 6px 7px; font-size: 10px; }
+.entry-actions { display: flex; justify-content: flex-end; gap: 7px; margin-top: 10px; }
+.tiny-btn { background: transparent; border: 1px solid #3a4962; color: #d8e2f1; border-radius: 8px; padding: 7px 10px; font-size: 10px; font-weight: 800; cursor: pointer; }
+.tiny-btn.delete { color: #ff9baa; border-color: #673544; }
+.empty { text-align: center; padding: 24px 10px; color: var(--muted); font-size: 12px; line-height: 1.8; }
+.empty strong { display: block; color: #eaf0fa; font-size: 14px; margin-bottom: 4px; }
+.insight { background: #132d2b; border: 1px solid #23534a; border-radius: 13px; padding: 12px; margin-top: 12px; }
+.insight-label { font-size: 10px; color: #8ce5c8; font-weight: 850; text-transform: uppercase; letter-spacing: 0.7px; }
+.insight-text { font-size: 12px; color: #e1f8f0; line-height: 1.6; margin-top: 5px; }
+.footer { text-align: center; color: #65758e; font-size: 10px; line-height: 1.7; padding: 8px 10px 0; }
+.section-anchor { scroll-margin-top: 10px; }
 
-/* ========== MAIN APP BACKGROUND ========== */
-#mainApp {
-  min-height: 100vh;
-  background: 
-    radial-gradient(ellipse at 20% 10%, rgba(220,38,38,0.15) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 80%, rgba(124,58,237,0.12) 0%, transparent 50%),
-    linear-gradient(rgba(0,255,65,0.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,255,65,0.025) 1px, transparent 1px),
-    #050505;
-  background-size: 100% 100%, 100% 100%, 30px 30px, 30px 30px, 100% 100%;
-  position: relative;
+/* BOTTOM NAV (FIXED) */
+.bottom-nav { 
+  position: fixed; 
+  z-index: 100; 
+  bottom: 0; 
+  left: 0; 
+  right: 0; 
+  padding: 8px 12px calc(8px + env(safe-area-inset-bottom)); 
+  background: rgba(10, 16, 32, 0.98); 
+  backdrop-filter: blur(18px); 
+  border-top: 1px solid #28364d; 
+  display: flex; 
+  justify-content: center; 
 }
-#mainApp::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image: 
-    repeating-linear-gradient(0deg, rgba(0,255,65,0.03) 0px, rgba(0,255,65,0.03) 1px, transparent 1px, transparent 3px);
-  pointer-events: none;
-  z-index: 0;
-}
-#mainApp > * { position: relative; z-index: 1; }
+.bottom-inner { width: 100%; max-width: 740px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; }
+.nav-btn { background: transparent; border: 0; color: #8797b0; border-radius: 11px; padding: 7px 4px; font-size: 10px; font-weight: 800; display: grid; justify-items: center; gap: 3px; cursor: pointer; }
+.nav-btn span { font-size: 18px; }
+.nav-btn.active { color: #fff; background: #1c2a41; }
 
-/* ========== TOP BAR ========== */
-.top-bar {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 16px;
-  background: rgba(5,5,5,0.85);
-  backdrop-filter: blur(15px);
-  border-bottom: 1px solid rgba(0,255,65,0.3);
-  box-shadow: 0 0 20px rgba(0,255,65,0.1);
-}
-.menu-btn {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  padding: 10px 12px;
-  background: rgba(0,255,65,0.05);
-  border: 1px solid rgba(0,255,65,0.5);
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s;
-}
-.menu-btn:active { background: rgba(0,255,65,0.2); box-shadow: 0 0 15px rgba(0,255,65,0.5); }
-.menu-btn span {
-  display: block;
-  width: 22px;
-  height: 2px;
-  background: #00ff41;
-  border-radius: 2px;
-  box-shadow: 0 0 6px rgba(0,255,65,0.8);
-  transition: all 0.3s;
-}
-.menu-btn span:nth-child(2) { width: 16px; }
-.top-title {
-  font-family: 'Courier New', monospace;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 3px;
-  color: #00ff41;
-  text-shadow: 0 0 10px rgba(0,255,65,0.8);
-}
-.top-status {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-family: 'Courier New', monospace;
-  font-size: 10px;
-  color: #00ff41;
-  opacity: 0.7;
-}
-.top-status-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #00ff41;
-  box-shadow: 0 0 8px #00ff41;
-  animation: pulse 1.5s infinite;
-}
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.3; }
-}
+/* TOAST */
+.toast { position: fixed; z-index: 200; left: 50%; bottom: 88px; transform: translate(-50%, 12px); opacity: 0; pointer-events: none; background: #e9fff6; color: #10291f; border-radius: 12px; padding: 11px 15px; font-size: 12px; font-weight: 850; box-shadow: 0 10px 35px #0005; transition: 0.2s; max-width: calc(100% - 28px); text-align: center; }
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
 
-/* ========== HERO ========== */
-.hero {
-  padding: 30px 20px 20px;
-  position: relative;
-}
-.hero-row {
-  display: flex;
-  align-items: center;
-  gap: 18px;
-  max-width: 500px;
-  margin: 0 auto;
-}
-.hero-avatar {
-  width: 90px;
-  height: 90px;
-  flex-shrink: 0;
-  border-radius: 50%;
-  overflow: hidden;
-  border: 3px solid #dc2626;
-  box-shadow: 0 0 30px rgba(220,38,38,0.6), inset 0 0 20px rgba(0,255,65,0.1);
-  background: linear-gradient(135deg, #1a0000, #000);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 36px;
-  font-weight: 800;
-  color: #dc2626;
-  position: relative;
-}
-.hero-avatar::after {
-  content: '';
-  position: absolute;
-  inset: -3px;
-  border-radius: 50%;
-  border: 2px solid rgba(0,255,65,0.5);
-  animation: spin 8s linear infinite;
-  border-top-color: transparent;
-  border-right-color: transparent;
-}
-@keyframes spin { to { transform: rotate(360deg); } }
-.hero-avatar img { width: 100%; height: 100%; object-fit: cover; object-position: center 25%; display: block; }
-.hero-info { flex: 1; min-width: 0; }
-.hero-name {
-  font-size: 22px;
-  font-weight: 800;
-  letter-spacing: 1px;
-  margin-bottom: 6px;
-  background: linear-gradient(135deg, #fff, #dc2626);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  word-break: break-word;
-  line-height: 1.2;
-}
-.hero-uid {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 5px 12px;
-  background: rgba(220,38,38,0.15);
-  border: 1px solid rgba(220,38,38,0.4);
-  border-radius: 50px;
-  font-size: 11px;
-  color: #fca5a5;
-  font-family: 'Courier New', monospace;
-  letter-spacing: 0.5px;
-}
-.hero-uid .copy-mini {
-  background: rgba(220,38,38,0.3);
-  border: none;
-  color: #fca5a5;
-  font-size: 11px;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-}
-.hero-tagline {
-  font-size: 11px;
-  color: #666;
-  margin-top: 6px;
-  font-family: 'Courier New', monospace;
-  letter-spacing: 1px;
-}
-
-/* ========== FOOTER ========== */
-footer { padding: 30px 0; text-align: center; color: #444; font-size: 12px; border-top: 1px solid rgba(0,255,65,0.1); margin-top: 30px; font-family: 'Courier New', monospace; }
-
-/* ========== INFO POPUP ========== */
-.popup-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.85);
-  backdrop-filter: blur(8px);
-  z-index: 9997;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-.popup-overlay.open { display: flex; opacity: 1; }
-.popup {
-  background: linear-gradient(145deg, #0a1a0a, #050505);
-  border: 1px solid #00ff41;
-  border-radius: 14px;
-  padding: 24px;
-  max-width: 420px;
-  width: 100%;
-  font-family: 'Courier New', monospace;
-  color: #00ff41;
-  box-shadow: 0 0 40px rgba(0,255,65,0.3);
-  transform: scale(0.9);
-  transition: transform 0.3s;
-  position: relative;
-}
-.popup-overlay.open .popup { transform: scale(1); }
-.popup::before, .popup::after {
-  content: '';
-  position: absolute;
-  width: 20px;
-  height: 20px;
-}
-.popup::before { top: -1px; left: -1px; border-top: 2px solid #00ff41; border-left: 2px solid #00ff41; }
-.popup::after { bottom: -1px; right: -1px; border-bottom: 2px solid #00ff41; border-right: 2px solid #00ff41; }
-.popup-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 18px;
-  padding-bottom: 12px;
-  border-bottom: 1px dashed rgba(0,255,65,0.3);
-}
-.popup-title {
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 3px;
-  text-shadow: 0 0 8px #00ff41;
-}
-.popup-close {
-  background: rgba(0,255,65,0.1);
-  border: 1px solid #00ff41;
-  color: #00ff41;
-  width: 32px;
-  height: 32px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: monospace;
-}
-.popup-close:active { background: rgba(0,255,65,0.3); }
-.popup-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 0;
-  border-bottom: 1px solid rgba(0,255,65,0.08);
-  font-size: 12px;
-}
-.popup-row:last-child { border-bottom: none; }
-.popup-label { color: #008833; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; }
-.popup-value { color: #00ff41; font-weight: 700; word-break: break-all; text-align: right; margin-left: 12px; }
-.popup-actions {
-  margin-top: 18px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-}
-.popup-actions button {
-  padding: 11px;
-  background: rgba(0,255,65,0.05);
-  border: 1px solid #00ff41;
-  border-radius: 6px;
-  color: #00ff41;
-  font-family: monospace;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  cursor: pointer;
-  text-transform: uppercase;
-}
-.popup-actions button:active { background: rgba(0,255,65,0.25); }
-
-@media (max-width: 400px) {
-  .hero-avatar { width: 75px; height: 75px; font-size: 30px; }
-  .hero-name { font-size: 18px; }
+@media(max-width: 390px) {
+  body { padding: 12px 9px 92px; }
+  .top { gap: 5px; }
+  .logo { width: 42px; height: 42px; }
+  .brand h1 { font-size: 19px; }
+  .clock { font-size: 10px; }
+  .panel { padding: 13px; }
+  .hero { padding: 16px; }
+  .metric { padding: 10px 7px; }
+  .field-grid { gap: 9px; }
+  .field input { font-size: 13px; padding: 11px 8px; }
+  .money-field input { padding-left: 26px; }
+  .btn { padding: 12px 9px; }
+  .period-btn { font-size: 9px; }
 }
 </style>
 </head>
 <body>
 
-<!-- TOAST -->
-<div class="copy-toast" id="copyToast">✅ Copied!</div>
-
-<!-- LOCK SCREEN -->
-<div class="lock" id="lockScreen">
-  <div class="icon">🔒</div>
-  <h1>𝕺𝖇𝖎𝖙𝖔 𝖀𝖈𝖍𝖎𝖍𝖆</h1>
-  <div class="sub">ACCESS REQUIRED</div>
-  <div class="did-box">
-    <div class="did-label">YOUR DEVICE ID</div>
-    <div class="did-value" id="deviceIdBox">Loading...</div>
-    <button class="copy-btn" onclick="copyDeviceId()">📋</button>
-  </div>
-  <p style="font-size: 12px; color: #888; max-width: 400px;">ID copy karo owner ko bhejo. Ya REQUEST dabao.</p>
-  <button class="primary" onclick="checkApproval()">✅ CHECK APPROVAL</button>
-  <button class="request" onclick="requestAccess()">📩 REQUEST ACCESS</button>
-  <div class="status" id="lockStatus">Waiting for approval...</div>
-</div>
-
-<!-- MAIN APP -->
-<div id="mainApp" class="hidden">
-
-  <!-- TOP BAR -->
-  <div class="top-bar">
-    <button class="menu-btn" onclick="openInfoPopup()" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
-    <div class="top-title">OBITO</div>
-    <div class="top-status">
-      <span class="top-status-dot"></span>
-      ONLINE
-    </div>
-  </div>
-
-  <!-- HERO -->
-  <div class="hero">
-    <div class="hero-row">
-      <div class="hero-avatar" id="avatarBox">𝕺</div>
-      <div class="hero-info">
-        <div class="hero-name">𝕺𝖇𝖎𝖙𝖔 𝖀𝖈𝖍𝖎𝖍𝖆</div>
-        <div class="hero-uid">
-          <span>UID: 384969427</span>
-          <button class="copy-mini" onclick="copyUid()" title="Copy">📋</button>
-        </div>
-        <div class="hero-tagline">// ACCESS GRANTED</div>
+<div class="app">
+  <header class="top">
+    <div class="brand">
+      <div class="logo" id="brandIcon">🛵</div>
+      <div>
+        <div class="eyebrow">Your daily money companion</div>
+        <h1>RideLedger <span style="color:var(--gold)">Pro</span></h1>
+        <div class="online"><i class="dot"></i> Offline-ready on this device</div>
       </div>
     </div>
-  </div>
+    <div class="clock"><strong id="liveTime">--:--:--</strong><span id="liveDate">Loading date…</span></div>
+  </header>
 
-  <footer>© 2026 𝕺𝖇𝖎𝖙𝖔 𝖀𝖈𝖍𝖎𝖍𝖆</footer>
+  <nav class="tabs" aria-label="Platform">
+    <button class="tab active-rapido" id="tabRapido" onclick="switchTab('rapido')">🛵 Rapido</button>
+    <button class="tab" id="tabZomato" onclick="switchTab('zomato')">🍔 Zomato</button>
+  </nav>
+
+  <!-- ================= RAPIDO SECTION ================= -->
+  <main id="secRapido" class="section rapido">
+    <section class="hero">
+      <div class="hero-top"><span>YOUR NET PROFIT</span><span class="pill" id="rEntryCount">0 shifts</span></div>
+      <div class="net positive" id="rBigNet">₹0</div>
+      <div class="hero-foot">
+        <div><div class="mini-label">Total earned</div><div class="mini-value" id="rHeroIncome">₹0</div></div>
+        <div><div class="mini-label">Total expenses</div><div class="mini-value" id="rHeroExpenses">₹0</div></div>
+      </div>
+    </section>
+
+    <section class="metric-grid">
+      <div class="metric"><div class="metric-icon">💵</div><div class="metric-label">Income</div><div class="metric-value" id="rTotalInc">₹0</div></div>
+      <div class="metric"><div class="metric-icon">⛽</div><div class="metric-label">Fuel cost</div><div class="metric-value" id="rTotalPetrol">₹0</div></div>
+      <div class="metric"><div class="metric-icon">🧰</div><div class="metric-label">Other costs</div><div class="metric-value" id="rTotalCosts">₹0</div></div>
+    </section>
+
+    <section class="panel section-anchor" id="rAddSection">
+      <div class="panel-head"><div><h2 id="rFormTitle">Add a shift</h2><div class="sub">Quick entry. Save in a few seconds.</div></div><span class="pill">₹ INR</span></div>
+      <form id="rForm" onsubmit="submitEntry(event,'rapido')">
+        <div class="field-grid">
+          <div class="field"><label for="rIncome">💰 Income earned</label><div class="money-field"><input id="rIncome" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0.00"></div></div>
+          <div class="field"><label for="rPetrol">⛽ Fuel / petrol</label><div class="money-field"><input id="rPetrol" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0.00"></div></div>
+          <div class="field"><label for="rApp">📲 Platform fees</label><div class="money-field"><input id="rApp" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0.00"></div></div>
+          <div class="field"><label for="rOther">🔧 Other expenses</label><div class="money-field"><input id="rOther" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0.00"></div></div>
+          <div class="field"><label for="rDate">📅 Work date</label><input id="rDate" type="date" required></div>
+          <div class="field"><label for="rTime">🕒 Shift time</label><input id="rTime" type="time" required></div>
+          <div class="field full"><label for="rNote">📝 Note (optional)</label><input id="rNote" maxlength="100" placeholder="e.g. Evening shift · 6 hours"></div>
+        </div>
+        <div class="quick-title">QUICK FILL COMMON AMOUNTS</div>
+        <div class="quick-row">
+          <button class="quick" type="button" onclick="quickFill('rapido','petrol',100)">Fuel ₹100</button>
+          <button class="quick" type="button" onclick="quickFill('rapido','petrol',200)">Fuel ₹200</button>
+          <button class="quick" type="button" onclick="quickFill('rapido','other',50)">Other ₹50</button>
+          <button class="quick" type="button" onclick="quickFill('rapido','app',0)">No platform fee</button>
+        </div>
+        <div class="preview"><span>Estimated net profit for this entry</span><strong id="rPreview" class="positive">₹0</strong></div>
+        <div class="hint">Date and time start at the current local time. Blank money fields count as ₹0.</div>
+        <div class="actions"><button class="btn primary" id="rSubmit" type="submit">＋ Save shift</button><button class="btn secondary hidden" id="rCancel" type="button" onclick="cancelEdit('rapido')">Cancel</button></div>
+      </form>
+    </section>
+
+    <section class="panel section-anchor" id="rSummarySection">
+      <div class="panel-head"><div><h2>Money overview</h2><div class="sub">Change the period to understand your real earnings.</div></div></div>
+      <div class="periods" id="rPeriods">
+        <button class="period-btn active" data-period="all" onclick="setPeriod('rapido','all')">All time</button>
+        <button class="period-btn" data-period="today" onclick="setPeriod('rapido','today')">Today</button>
+        <button class="period-btn" data-period="week" onclick="setPeriod('rapido','week')">7 days</button>
+        <button class="period-btn" data-period="month" onclick="setPeriod('rapido','month')">This month</button>
+      </div>
+      <div style="height:8px"></div>
+      <div class="sum-row"><span>Total income</span><strong class="positive" id="rPeriodIncome">₹0</strong></div>
+      <div class="sum-row"><span>Total expenses</span><strong class="negative" id="rPeriodExpenses">₹0</strong></div>
+      <div class="sum-row"><span>Net profit</span><strong id="rPeriodNet">₹0</strong></div>
+      <div class="sum-row"><span>Average profit per shift</span><strong id="rPeriodAvg">₹0</strong></div>
+      <div class="sum-row"><span>Profit margin</span><strong id="rMargin">0%</strong></div>
+      <div class="insight"><div class="insight-label">💡 Your insight</div><div class="insight-text" id="rInsight">Add your first shift to see a useful summary.</div></div>
+    </section>
+
+    <section class="panel section-anchor" id="rHistorySection">
+      <div class="panel-head"><div><h2>Shift history</h2><div class="sub">Grouped by date · newest first</div></div><span class="pill" id="rShownCount">0 shown</span></div>
+      <div class="filter-row">
+        <input class="filter-input" id="rSearch" type="search" placeholder="Search notes or date…" oninput="render('rapido')">
+        <select class="filter-select" id="rSort" onchange="render('rapido')"><option value="new">Newest</option><option value="old">Oldest</option><option value="profit">Highest profit</option></select>
+      </div>
+      <div style="height:12px"></div>
+      <div class="entries" id="rapidoEntries"></div>
+      <div class="actions">
+        <button class="btn secondary" style="flex:1" onclick="exportCSV('rapido')">⬇ Export CSV</button>
+        <button class="btn outline" style="flex:1" onclick="exportBackup()">Backup all data</button>
+      </div>
+      <button class="btn danger" style="width:100%;margin-top:10px" onclick="clearAll('rapido')">Clear all Rapido entries</button>
+    </section>
+  </main>
+
+  <!-- ================= ZOMATO SECTION ================= -->
+  <main id="secZomato" class="section zomato hidden">
+    <section class="hero">
+      <div class="hero-top"><span>YOUR NET PROFIT</span><span class="pill" id="zEntryCount">0 shifts</span></div>
+      <div class="net positive" id="zBigNet">₹0</div>
+      <div class="hero-foot">
+        <div><div class="mini-label">Total earned</div><div class="mini-value" id="zHeroIncome">₹0</div></div>
+        <div><div class="mini-label">Total expenses</div><div class="mini-value" id="zHeroExpenses">₹0</div></div>
+      </div>
+    </section>
+
+    <section class="metric-grid">
+      <div class="metric"><div class="metric-icon">💵</div><div class="metric-label">Income</div><div class="metric-value" id="zTotalInc">₹0</div></div>
+      <div class="metric"><div class="metric-icon">⛽</div><div class="metric-label">Fuel cost</div><div class="metric-value" id="zTotalPetrol">₹0</div></div>
+      <div class="metric"><div class="metric-icon">🧰</div><div class="metric-label">Other costs</div><div class="metric-value" id="zTotalCosts">₹0</div></div>
+    </section>
+
+    <section class="panel section-anchor" id="zAddSection">
+      <div class="panel-head"><div><h2 id="zFormTitle">Add a shift</h2><div class="sub">Quick entry. Save in a few seconds.</div></div><span class="pill">₹ INR</span></div>
+      <form id="zForm" onsubmit="submitEntry(event,'zomato')">
+        <div class="field-grid">
+          <div class="field"><label for="zIncome">💰 Income earned</label><div class="money-field"><input id="zIncome" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0.00"></div></div>
+          <div class="field"><label for="zPetrol">⛽ Fuel / petrol</label><div class="money-field"><input id="zPetrol" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0.00"></div></div>
+          <div class="field"><label for="zApp">📲 Platform fees</label><div class="money-field"><input id="zApp" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0.00"></div></div>
+          <div class="field"><label for="zOther">🔧 Other expenses</label><div class="money-field"><input id="zOther" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0.00"></div></div>
+          <div class="field"><label for="zDate">📅 Work date</label><input id="zDate" type="date" required></div>
+          <div class="field"><label for="zTime">🕒 Shift time</label><input id="zTime" type="time" required></div>
+          <div class="field full"><label for="zNote">📝 Note (optional)</label><input id="zNote" maxlength="100" placeholder="e.g. Lunch shift · 4 hours"></div>
+        </div>
+        <div class="quick-title">QUICK FILL COMMON AMOUNTS</div>
+        <div class="quick-row">
+          <button class="quick" type="button" onclick="quickFill('zomato','petrol',100)">Fuel ₹100</button>
+          <button class="quick" type="button" onclick="quickFill('zomato','petrol',200)">Fuel ₹200</button>
+          <button class="quick" type="button" onclick="quickFill('zomato','other',50)">Other ₹50</button>
+          <button class="quick" type="button" onclick="quickFill('zomato','app',0)">No platform fee</button>
+        </div>
+        <div class="preview"><span>Estimated net profit for this entry</span><strong id="zPreview" class="positive">₹0</strong></div>
+        <div class="hint">Date and time start at the current local time. Blank money fields count as ₹0.</div>
+        <div class="actions"><button class="btn primary" id="zSubmit" type="submit">＋ Save shift</button><button class="btn secondary hidden" id="zCancel" type="button" onclick="cancelEdit('zomato')">Cancel</button></div>
+      </form>
+    </section>
+
+    <section class="panel section-anchor" id="zSummarySection">
+      <div class="panel-head"><div><h2>Money overview</h2><div class="sub">Change the period to understand your real earnings.</div></div></div>
+      <div class="periods" id="zPeriods">
+        <button class="period-btn active" data-period="all" onclick="setPeriod('zomato','all')">All time</button>
+        <button class="period-btn" data-period="today" onclick="setPeriod('zomato','today')">Today</button>
+        <button class="period-btn" data-period="week" onclick="setPeriod('zomato','week')">7 days</button>
+        <button class="period-btn" data-period="month" onclick="setPeriod('zomato','month')">This month</button>
+      </div>
+      <div style="height:8px"></div>
+      <div class="sum-row"><span>Total income</span><strong class="positive" id="zPeriodIncome">₹0</strong></div>
+      <div class="sum-row"><span>Total expenses</span><strong class="negative" id="zPeriodExpenses">₹0</strong></div>
+      <div class="sum-row"><span>Net profit</span><strong id="zPeriodNet">₹0</strong></div>
+      <div class="sum-row"><span>Average profit per shift</span><strong id="zPeriodAvg">₹0</strong></div>
+      <div class="sum-row"><span>Profit margin</span><strong id="zMargin">0%</strong></div>
+      <div class="insight"><div class="insight-label">💡 Your insight</div><div class="insight-text" id="zInsight">Add your first shift to see a useful summary.</div></div>
+    </section>
+
+    <section class="panel section-anchor" id="zHistorySection">
+      <div class="panel-head"><div><h2>Shift history</h2><div class="sub">Grouped by date · newest first</div></div><span class="pill" id="zShownCount">0 shown</span></div>
+      <div class="filter-row">
+        <input class="filter-input" id="zSearch" type="search" placeholder="Search notes or date…" oninput="render('zomato')">
+        <select class="filter-select" id="zSort" onchange="render('zomato')"><option value="new">Newest</option><option value="old">Oldest</option><option value="profit">Highest profit</option></select>
+      </div>
+      <div style="height:12px"></div>
+      <div class="entries" id="zomatoEntries"></div>
+      <div class="actions">
+        <button class="btn secondary" style="flex:1" onclick="exportCSV('zomato')">⬇ Export CSV</button>
+        <button class="btn outline" style="flex:1" onclick="exportBackup()">Backup all data</button>
+      </div>
+      <button class="btn danger" style="width:100%;margin-top:10px" onclick="clearAll('zomato')">Clear all Zomato entries</button>
+    </section>
+  </main>
+
+  <div class="footer">RideLedger Pro · Your data stays on this device/browser.<br>Export backups regularly. Profit excludes costs you do not enter.</div>
 </div>
 
-<!-- INFO POPUP -->
-<div class="popup-overlay" id="infoPopup" onclick="if(event.target===this)closeInfoPopup()">
-  <div class="popup">
-    <div class="popup-header">
-      <div class="popup-title">◆ USER INFO</div>
-      <button class="popup-close" onclick="closeInfoPopup()">✕</button>
-    </div>
-
-    <div class="popup-row">
-      <span class="popup-label">Name</span>
-      <span class="popup-value">Obito Uchiha</span>
-    </div>
-    <div class="popup-row">
-      <span class="popup-label">WePlay UID</span>
-      <span class="popup-value" id="popupUid">384969427</span>
-    </div>
-    <div class="popup-row">
-      <span class="popup-label">Device ID</span>
-      <span class="popup-value" id="popupDeviceId" style="font-size:10px;">-</span>
-    </div>
-    <div class="popup-row">
-      <span class="popup-label">Status</span>
-      <span class="popup-value" style="color:#4ade80;">✓ APPROVED</span>
-    </div>
-    <div class="popup-row">
-      <span class="popup-label">Session</span>
-      <span class="popup-value" id="popupSession">-</span>
-    </div>
-
-    <div class="popup-actions">
-      <button onclick="copyUid();closeInfoPopup()">📋 Copy UID</button>
-      <button onclick="copyDeviceId();closeInfoPopup()">🆔 Copy Device</button>
-    </div>
+<!-- ================= FIXED BOTTOM NAVIGATION ================= -->
+<nav class="bottom-nav">
+  <div class="bottom-inner">
+    <button class="nav-btn active" onclick="goSection('add')"><span>＋</span>Add shift</button>
+    <button class="nav-btn" onclick="goSection('summary')"><span>▥</span>Overview</button>
+    <button class="nav-btn" onclick="goSection('history')"><span>☷</span>History</button>
   </div>
-</div>
+</nav>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
-/* ============================================
-   APP LOGIC
-   ============================================ */
-const FIREBASE_URL = 'https://obito-app-default-rtdb.firebaseio.com';
-const WHITELIST_URL = 'https://api.github.com/repos/obito-uchiha-07/Portfolio/contents/whitelist.json';
-const MY_UID = '384969427';
+'use strict';
+const PREFIX='rideledger_pro_v3_', editIds={rapido:null,zomato:null}, periods={rapido:'all',zomato:'all'};
+const $=id=>document.getElementById(id);
+const money=n=>new Intl.NumberFormat('en-IN',{style:'currency',currency:'INR',maximumFractionDigits:2}).format(Number(n)||0);
+const localDate=d=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+const localTime=d=>`${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
 
-function getDeviceId() {
-  let id = localStorage.getItem('obito_device_id');
-  if (!id) {
-    const rand = Math.random().toString(36).substr(2, 6).toUpperCase();
-    const time = Date.now().toString(36).toUpperCase().slice(-4);
-    id = 'OB-' + rand + '-' + time;
-    localStorage.setItem('obito_device_id', id);
-  }
-  return id;
-}
-const DEVICE_ID = getDeviceId();
-document.getElementById('deviceIdBox').textContent = DEVICE_ID;
-document.getElementById('popupDeviceId').textContent = DEVICE_ID;
+function toast(msg){const t=$('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toast.timer);toast.timer=setTimeout(()=>t.classList.remove('show'),2300)}
+function updateClock(){const d=new Date();$('liveTime').textContent=d.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:true});$('liveDate').textContent=d.toLocaleDateString('en-IN',{weekday:'short',day:'2-digit',month:'short',year:'numeric'})}
+function pfx(app){return app==='rapido'?'r':'z'}
+function setDefaults(app){const p=pfx(app),d=new Date();$(p+'Date').value=localDate(d);$(p+'Time').value=localTime(d)}
+function switchTab(app){const r=app==='rapido';$('secRapido').classList.toggle('hidden',!r);$('secZomato').classList.toggle('hidden',r);$('tabRapido').className='tab'+(r?' active-rapido':'');$('tabZomato').className='tab'+(!r?' active-zomato':'');$('brandIcon').textContent=r?'🛵':'🍔';render(app)}
+function getData(app){try{let raw=localStorage.getItem(PREFIX+app);if(raw===null){const old=localStorage.getItem('rideledger_v2_'+app);if(old!==null){raw=old;localStorage.setItem(PREFIX+app,old)}}const arr=JSON.parse(raw||'[]');return Array.isArray(arr)?arr.filter(e=>e&&typeof e==='object'&&e.date&&e.time):[]}catch(e){return []}}
+function saveData(app,data){try{localStorage.setItem(PREFIX+app,JSON.stringify(data));return true}catch(e){alert('Could not save data. Your browser storage may be full or blocked. Export a backup or free storage space.');return false}}
+function quickFill(app,field,amount){const p=pfx(app);$(p+({petrol:'Petrol',other:'Other',app:'App'}[field])).value=amount;updatePreview(app)}
+function formValues(app){const p=pfx(app),vals={};for(const f of ['Income','Petrol','App','Other']){const raw=$(p+f).value,n=raw===''?0:Number(raw);if(!Number.isFinite(n)||n<0)throw Error('Enter valid amounts. Negative amounts are not allowed.');vals[f.toLowerCase()]=Math.round(n*100)/100}return vals}
+function net(e){return (Number(e.income)||0)-(Number(e.petrol)||0)-(Number(e.app)||0)-(Number(e.other)||0)}
+function submitEntry(ev,app){ev.preventDefault();const p=pfx(app);let vals;try{vals=formValues(app)}catch(e){alert(e.message);return}if(Object.values(vals).every(v=>v===0)){alert('Enter income or at least one expense before saving.');return}const date=$(p+'Date').value,time=$(p+'Time').value;if(!date||!time){alert('Select the work date and time.');return}if(date>localDate(new Date())){if(!confirm('This entry is dated in the future. Save it anyway?'))return}
+const data=getData(app),note=$(p+'Note').value.trim(),wasEditing=editIds[app]!==null;if(editIds[app]!==null){const i=data.findIndex(e=>e.id===editIds[app]);if(i<0){alert('This entry no longer exists.');resetForm(app);return}data[i]={...data[i],...vals,date,time,note,updatedAt:new Date().toISOString()}}
+else data.push({id:makeId(),...vals,date,time,note,createdAt:new Date().toISOString()});
+if(!saveData(app,data))return;resetForm(app);render(app);toast(wasEditing?'Entry updated':'Entry saved successfully');}
+function makeId(){return (window.crypto&&crypto.randomUUID)?crypto.randomUUID():String(Date.now())+'-'+Math.random().toString(36).slice(2)}
+function resetForm(app){const p=pfx(app);editIds[app]=null;$(p+'Form').reset();$(p+'FormTitle').textContent='Add a shift';$(p+'Submit').textContent='＋ Save shift';$(p+'Cancel').classList.add('hidden');setDefaults(app);updatePreview(app)}
+function cancelEdit(app){resetForm(app);toast('Edit cancelled')}
+function editEntry(app,id){const e=getData(app).find(x=>String(x.id)===String(id));if(!e)return;const p=pfx(app);editIds[app]=e.id;for(const f of ['income','petrol','app','other'])$(p+f[0].toUpperCase()+f.slice(1)).value=e[f]??0;$(p+'Date').value=e.date;$(p+'Time').value=e.time;$(p+'Note').value=e.note||'';$(p+'FormTitle').textContent='Edit shift';$(p+'Submit').textContent='Save changes';$(p+'Cancel').classList.remove('hidden');updatePreview(app);$(''+p+'AddSection').scrollIntoView({behavior:'smooth',block:'start'})}
+function delEntry(app,id){if(!confirm('Delete this shift? This cannot be undone.'))return;const data=getData(app).filter(e=>String(e.id)!==String(id));if(!saveData(app,data))return;if(String(editIds[app])===String(id))resetForm(app);render(app);toast('Entry deleted')}
+function clearAll(app){const data=getData(app);if(!data.length){toast('There are no entries to clear');return}if(!confirm('Delete all '+(app==='rapido'?'Rapido':'Zomato')+' entries? This cannot be undone. Export a backup first if needed.'))return;if(!saveData(app,[]))return;resetForm(app);render(app);toast('Entries cleared')}
+function total(data,key){return data.reduce((s,e)=>s+(Number(e[key])||0),0)}
+function prettyDate(date){const d=new Date(date+'T12:00:00');return d.toLocaleDateString('en-IN',{weekday:'long',day:'2-digit',month:'short',year:'numeric'})}
+function filterPeriod(data,period){const now=new Date(),today=localDate(now);return data.filter(e=>{if(period==='today')return e.date===today;if(period==='month')return e.date.slice(0,7)===today.slice(0,7);if(period==='week'){const start=new Date(now.getFullYear(),now.getMonth(),now.getDate()-6);return e.date>=localDate(start)&&e.date<=today}return true})}
+function setPeriod(app,period){periods[app]=period;const p=pfx(app);$(p+'Periods').querySelectorAll('button').forEach(b=>b.classList.toggle('active',b.dataset.period===period));render(app)}
+function safe(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function updatePreview(app){const p=pfx(app);let v;try{v=formValues(app)}catch{return}const n=v.income-v.petrol-v.app-v.other,el=$(p+'Preview');el.textContent=money(n);el.className=n>=0?'positive':'negative'}
+function render(app){const p=pfx(app);let data=getData(app).slice();data.sort((a,b)=>(b.date+'T'+b.time).localeCompare(a.date+'T'+a.time));const inc=total(data,'income'),pet=total(data,'petrol'),fees=total(data,'app'),other=total(data,'other'),cost=pet+fees+other,profit=inc-cost;
+$(p+'BigNet').textContent=money(profit);$(p+'BigNet').className='net '+(profit>=0?'positive':'negative');$(p+'HeroIncome').textContent=money(inc);$(p+'HeroExpenses').textContent=money(cost);$(p+'TotalInc').textContent=money(inc);$(p+'TotalPetrol').textContent=money(pet);$(p+'TotalCosts').textContent=money(fees+other);$(p+'EntryCount').textContent=data.length+' '+(data.length===1?'shift':'shifts');
+const pd=filterPeriod(data,periods[app]),pi=total(pd,'income'),pe=pd.reduce((s,e)=>s+(+e.petrol||0)+(+e.app||0)+(+e.other||0),0),pn=pi-pe;$(p+'PeriodIncome').textContent=money(pi);$(p+'PeriodExpenses').textContent=money(pe);$(p+'PeriodNet').textContent=money(pn);$(p+'PeriodNet').className=pn>=0?'positive':'negative';$(p+'PeriodAvg').textContent=money(pd.length?pn/pd.length:0);$(p+'Margin').textContent=(pi?((pn/pi)*100).toFixed(1):'0.0')+'%';
+let insight='Add your first shift to start seeing your earning pattern.';if(pd.length){if(pn<0)insight='Expenses are higher than income in this period. Check fuel, fees and other costs.';else if(pi===0)insight='You have expenses recorded but no income yet. Add the income when you have it.';else insight='You kept '+((pn/pi)*100).toFixed(1)+'% of recorded income as net profit across '+pd.length+' shift'+(pd.length===1?'':'s')+'.';}$(p+'Insight').textContent=insight;
+const q=$(p+'Search').value.trim().toLowerCase(),sort=$(p+'Sort').value;let shown=data.filter(e=>!q||String(e.note||'').toLowerCase().includes(q)||e.date.includes(q)||prettyDate(e.date).toLowerCase().includes(q));if(sort==='old')shown.reverse();if(sort==='profit')shown.sort((a,b)=>net(b)-net(a));$(p+'ShownCount').textContent=shown.length+' shown';const box=$(app+'Entries');
+if(!shown.length){box.innerHTML='<div class="empty"><strong>'+(data.length?'No matching entries':'Your history starts here')+'</strong>'+(data.length?'Try a different search.':'Save your first shift above. Your daily totals and profit will appear here.')+'</div>';return}
+let html='',lastDate='';for(const e of shown){if(e.date!==lastDate){lastDate=e.date;const same=shown.filter(x=>x.date===e.date),dayNet=same.reduce((s,x)=>s+net(x),0);html+='<div class="day-head"><span>'+safe(prettyDate(e.date))+'</span><span>'+same.length+' shift(s) · '+money(dayNet)+'</span></div>'}const en=net(e),t=e.time?new Date('2000-01-01T'+e.time).toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit',hour12:true}):'Time not set';html+='<article class="entry"><div class="entry-top"><div><div class="entry-title">'+safe(e.note||'Work shift')+'</div><div class="entry-time">'+safe(t)+' · '+safe(e.date)+'</div></div><div class="entry-net '+(en>=0?'positive':'negative')+'">'+money(en)+'</div></div><div class="entry-details"><span class="chip">Income '+money(e.income)+'</span><span class="chip">Fuel '+money(e.petrol)+'</span><span class="chip">Fees '+money(e.app)+'</span><span class="chip">Other '+money(e.other)+'</span></div><div class="entry-actions"><button class="tiny-btn" onclick="editEntry('+JSON.stringify(app)+','+JSON.stringify(e.id)+')">✎ Edit</button><button class="tiny-btn delete" onclick="delEntry('+JSON.stringify(app)+','+JSON.stringify(e.id)+')">Delete</button></div></article>'}box.innerHTML=html}
+function goSection(name){const app=$('secRapido').classList.contains('hidden')?'zomato':'rapido',p=pfx(app),id=p+({add:'AddSection',summary:'SummarySection',history:'HistorySection'}[name]);$(id).scrollIntoView({behavior:'smooth',block:'start'});document.querySelectorAll('.nav-btn').forEach((b,i)=>b.classList.toggle('active',['add','summary','history'][i]===name))}
+function csvEscape(v){return '"'+String(v??'').replace(/"/g,'""')+'"'}
+function downloadText(name,text,type){const blob=new Blob([text],{type}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000)}
+function exportCSV(app){const data=getData(app).slice().sort((a,b)=>(a.date+'T'+a.time).localeCompare(b.date+'T'+b.time));if(!data.length){toast('No entries to export yet');return}const rows=[['Platform','Date','Day','Time','Note','Income INR','Fuel INR','Platform fees INR','Other INR','Net profit INR'],...data.map(e=>[app,e.date,prettyDate(e.date),e.time,e.note||'',e.income,e.petrol,e.app,e.other,net(e)])];downloadText('rideledger-'+app+'-'+localDate(new Date())+'.csv','\ufeff'+rows.map(r=>r.map(csvEscape).join(',')).join('\r\n'),'text/csv;charset=utf-8;');toast('CSV export started')}
+function exportBackup(){const backup={app:'RideLedger Pro',version:3,exportedAt:new Date().toISOString(),rapido:getData('rapido'),zomato:getData('zomato')};downloadText('rideledger-backup-'+localDate(new Date())+'.json',JSON.stringify(backup,null,2),'application/json');toast('Backup file prepared')}
+function importBackup(file){const reader=new FileReader();reader.onload=()=>{try{const d=JSON.parse(reader.result);if(!Array.isArray(d.rapido)||!Array.isArray(d.zomato))throw Error('Invalid backup');if(!confirm('Import backup? Existing entries will be replaced by the backup data.'))return;if(!saveData('rapido',d.rapido)||!saveData('zomato',d.zomato))return;render('rapido');render('zomato');toast('Backup restored')}catch(e){alert('Could not import this backup file. Choose a valid RideLedger JSON backup.')}};reader.readAsText(file)}
 
-// Session info
-const SESSION_START = new Date();
-document.getElementById('popupSession').textContent = SESSION_START.toLocaleTimeString('en-IN');
+// Restore Button Setup (Footer ke upar)
+const restoreBtn=document.createElement('button');restoreBtn.className='btn outline';restoreBtn.textContent='Restore backup';restoreBtn.style.cssText='display:block;margin:0 auto 8px;font-size:10px;padding:8px 12px';restoreBtn.onclick=()=>fileInput.click();
+const fileInput=document.createElement('input');fileInput.type='file';fileInput.accept='.json,application/json';fileInput.hidden=true;fileInput.onchange=()=>{if(fileInput.files&&fileInput.files[0])importBackup(fileInput.files[0]);fileInput.value=''};
+document.querySelector('.footer').prepend(restoreBtn,fileInput);
 
-function copyDeviceId() { copyText(DEVICE_ID, 'Device ID'); }
-function copyUid() { copyText(MY_UID, 'WePlay UID'); }
-function copyText(text, label) {
-  if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(text).then(() => showCopyToast(label + ' copied!')).catch(fallbackCopy);
-  } else { fallbackCopy(); }
-  function fallbackCopy() {
-    const ta = document.createElement('textarea');
-    ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
-    document.body.appendChild(ta); ta.select();
-    try { document.execCommand('copy'); showCopyToast(label + ' copied!'); } catch(e) { alert('Copy: ' + text); }
-    document.body.removeChild(ta);
-  }
-}
-function showCopyToast(msg) {
-  const toast = document.getElementById('copyToast');
-  toast.textContent = '✅ ' + msg; toast.classList.add('show');
-  setTimeout(() => toast.classList.remove('show'), 2000);
-}
-async function checkApproval() {
-  const status = document.getElementById('lockStatus');
-  status.textContent = '⏳ Checking...'; status.className = 'status';
-  try {
-    const res = await fetch(WHITELIST_URL + '?t=' + Date.now(), { cache: 'no-store', headers: { 'Accept': 'application/vnd.github.v3+json' } });
-    if (!res.ok) throw new Error('API error');
-    const data = await res.json();
-    const decoded = JSON.parse(atob(data.content.replace(/\n/g, '')));
-    const approved = decoded.approved || [];
-    if (approved.includes(DEVICE_ID)) {
-      status.textContent = '✅ APPROVED! Opening...'; status.className = 'status ok';
-      setTimeout(() => {
-        document.getElementById('lockScreen').classList.add('hidden');
-        document.getElementById('mainApp').classList.remove('hidden');
-        loadAvatar();
-      }, 800);
-    } else { status.textContent = '❌ Not approved yet.'; status.className = 'status err'; }
-  } catch (e) { status.textContent = '⚠️ Error: ' + e.message; status.className = 'status err'; }
-}
-async function requestAccess() {
-  const status = document.getElementById('lockStatus');
-  status.textContent = '📩 Sending request...'; status.className = 'status';
-  let ip = 'unknown';
-  try { const r = await fetch('https://api.ipify.org?format=json'); const d = await r.json(); ip = d.ip; } catch(e) {}
-  const requestData = {
-    deviceId: DEVICE_ID, time: new Date().toLocaleString('en-IN'), timestamp: Date.now(),
-    platform: navigator.platform || 'unknown',
-    deviceInfo: navigator.userAgent.match(/\(([^)]+)\)/)?.[1] || 'unknown',
-    browser: navigator.userAgent, screen: window.screen.width + 'x' + window.screen.height,
-    language: navigator.language || 'unknown',
-    timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || 'unknown',
-    ip: ip, status: 'pending'
-  };
-  try {
-    const key = DEVICE_ID.replace(/[^A-Z0-9-]/g, '');
-    const res = await fetch(FIREBASE_URL + '/requests/' + key + '.json', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(requestData) });
-    if (res.ok) { status.textContent = '✅ Request sent! Owner approve karega.'; status.className = 'status ok'; }
-    else { status.textContent = '❌ Failed. Try again.'; status.className = 'status err'; }
-  } catch (e) { status.textContent = '⚠️ Error: ' + e.message; status.className = 'status err'; }
-}
-setTimeout(checkApproval, 1000);
-function loadAvatar() {
-  const box = document.getElementById('avatarBox');
-  const names = ['dp.jpg', 'dp.jpeg', 'dp.png'];
-  let i = 0;
-  function next() {
-    if (i >= names.length) return;
-    const img = new Image();
-    img.onload = () => { box.innerHTML = ''; box.appendChild(img); };
-    img.onerror = () => { i++; next(); };
-    img.src = names[i] + '?t=' + Date.now();
-  }
-  next();
-}
+// Init System (Page load par data wapas laane ke liye)
+['rapido','zomato'].forEach(app=>{
+  const p=pfx(app);
+  setDefaults(app);
+  for(const f of ['Income','Petrol','App','Other']) $(p+f).addEventListener('input',()=>updatePreview(app));
+});
 
-/* ============================================
-   INFO POPUP
-   ============================================ */
-function openInfoPopup() {
-  document.getElementById('infoPopup').classList.add('open');
-}
-function closeInfoPopup() {
-  document.getElementById('infoPopup').classList.remove('open');
-}
+updateClock();
+setInterval(updateClock,1000);
+render('rapido');
+render('zomato');
 </script>
 </body>
 </html>
